@@ -1,6 +1,6 @@
 ﻿namespace BankAccount
 {
-    internal class Validator
+    public class Validator
     {
         /// <summary>
         /// Checks to ensure that value is within inclusive boundaries
