@@ -11,10 +11,27 @@ namespace BankAccount
     /// </summary>
     public class Account
     {
+        private string _accountNumber;
         /// <summary>
         /// AccountNumbers must start with 4 diggits followed by a dash and then 5 characters (A - Z) not case sensitive
         /// </summary>
-        public required string AccountNumber { get; set; }
+        public required string AccountNumber
+        {
+            get => _accountNumber;
+            init
+            {
+                if (!IsValidAccountNumber(value))
+                    throw new ArgumentException("Invalid account number format.", nameof(AccountNumber));
+                _accountNumber = value;
+            }
+        }
+
+        private static bool IsValidAccountNumber(string value)
+        {
+            if (string.IsNullOrWhiteSpace(value)) return false;
+            // 4 digits, dash, 5 letters (A-Z, case insensitive)
+            return System.Text.RegularExpressions.Regex.IsMatch(value, @"^\d{4}-[A-Za-z]{5}$");
+        }
 
         /// <summary>
         /// The current balance of the account
